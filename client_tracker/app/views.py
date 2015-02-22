@@ -8,6 +8,7 @@ from .forms import AddIfa
 from .models import clients, ifa, deleted_ifa
 from .secrets import *
 from flask.ext.login import login_user, logout_user, current_user, login_required
+ 
 import MySQLdb
 db = MySQLdb.connect(host="localhost", user=USER, passwd=PASSWORD, db="nickdb1")
 cursor = db.cursor()
@@ -79,7 +80,10 @@ def profile():
 	clientid = request.args.get("clientid")
 	if form.validate_on_submit():
 		#cursor.execute("INSERT INTO ifa VALUES ('', '%(desc)s', '%(duedate)s', '%(clientid)s'", {'desc': form.description.data, 'duedate': form.duedate.data, 'clientid': clientid})
-		cursor.execute("INSERT INTO ifa VALUES ('','{0}','{1}','{2}')" .format(form.description.data, form.duedate.data, clientid))
+		
+#removes single quotes from input. they screw up the mysql queries.
+		desc = form.description.data.replace("'", "")
+		cursor.execute("INSERT INTO ifa VALUES ('','{0}','{1}','{2}')" .format(desc, form.duedate.data, clientid))
 		db.commit()
 	cursor.execute("SELECT fname, lname, phone, dob FROM clients WHERE idclients = {0}" .format(clientid))
 	query = cursor.fetchall()
