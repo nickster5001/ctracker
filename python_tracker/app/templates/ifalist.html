@@ -24,17 +24,37 @@
 						<form action="{{ url_for('editifa') }}" method="post" style="height: 2px;">
 							<div class="btn-group btn-group-mini" role="group" aria-label="buttons">
 								<button onclick="window.document.location='/profile?clientid={{clientid}}';"class="btn btn-primary btn-mini" role = "group" type="button">Profile</li></a></button>
+							
+							<div class="btn-group btn-group-mini" role="group" aria-label="buttons">
 							<input type="hidden" name="idifa" value="{{query[i][0]}}">
-							<input type="hidden" name="move_where" value=1>
 							<button type="submit" name="move_where" value="1" class="btn btn-danger btn-mini">Del</button>
 								<button type="button" class="btn btn-danger btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 								<span class="caret"></span>
 								<span class="sr-only"></span>
 								</button>
 								<ul class="dropdown-menu" role="menu">
-									<li><a href="#">Tomorrow</a></li>
-									<li><a href="#">Next Week</a></li>
-									<li><a href="#">Next Month</a></li>
+									<li>
+										<form action="{{ url_for('editifa') }}" method="post" style="height: 2px;">
+											<input type="hidden" name="idifa" value="{{query[i][0]}}">
+											<input type="hidden" name="move_where" value='3'>
+											<button type="submit" class="btn btn-default btn-small">Do It Tomorrow</button>
+										</form>
+									
+									</li>
+									<li>
+										<form action="{{ url_for('editifa') }}" method="post" style="height: 2px;">
+											<input type="hidden" name="idifa" value="{{query[i][0]}}">
+											<input type="hidden" name="move_where" value='4'>
+											<button type="submit" class="btn btn-default btn-small">Do In A Week</button>
+										</form>
+									</li>
+									<li>
+										<form action="{{ url_for('editifa') }}" method="post" style="height: 2px;">
+											<input type="hidden" name="idifa" value="{{query[i][0]}}">
+											<input type="hidden" name="move_where" value='5'>
+											<button type="submit" class="btn btn-default btn-small">Do It In A Month</button>
+										</form>
+									</li>
 								</ul>
 							</div>
 						</form>

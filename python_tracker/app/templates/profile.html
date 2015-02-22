@@ -31,9 +31,10 @@ dateFormat: "yymmdd"
 <table style="background-color: rgba(240, 240, 240, 0.7)" cellpadding="10">
 		<tr><td>
 		<h2><b>Add New IFA</b></h2>
-		<form action="" method="post">
+		<form action="/profile?clientid={{clientid}}" method="POST">
 			<fieldset>
-			<input type="hidden" name="clientid" value="[[clientid]]">
+			<!--<input type="hidden" name="clientid" value="clientid">
+			-->
 			<label>Date:</label>
 			{{ form.duedate(size=40, id="datepicker") }}  
 			{% for error in form.duedate.errors %}
@@ -81,22 +82,34 @@ dateFormat: "yymmdd"
 						<form action="{{ url_for('editifa') }}" method="post" style="height: 2px;">
 							<div class="btn-group btn-group-mini" role="group" aria-label="buttons">
 							<input type="hidden" name="idifa" value="{{query2[i][0]}}">
-							<input type="hidden" name="move_where" value=1>
 							<button type="submit" name="move_where" value="1" class="btn btn-danger btn-mini">Del</button>
 								<button type="button" class="btn btn-danger btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 								<span class="caret"></span>
 								<span class="sr-only"></span>
 								</button>
 								<ul class="dropdown-menu" role="menu">
-									<li><form action="{{ url_for('editifa') }}" method="post" style="height: 2px;">
-										<input type="hidden" name="idifa" value="{{query2[i][0]}}">
-										<input type="hidden" name="move_where" value=3>
-										<button type="submit" name="move_where" value="3" class="btn btn-danger btn-mini">Del</button>
+									<li>
+										<form action="{{ url_for('editifa') }}" method="post" style="height: 2px;">
+											<input type="hidden" name="idifa" value="{{query2[i][0]}}">
+											<input type="hidden" name="move_where" value='3'>
+											<button type="submit" class="btn btn-default btn-small">Try Again Tomorrow</button>
 										</form>
 									
 									</li>
-									<li><a href="#">Next Week</a></li>
-									<li><a href="#">Next Month</a></li>
+									<li>
+										<form action="{{ url_for('editifa') }}" method="post" style="height: 2px;">
+											<input type="hidden" name="idifa" value="{{query2[i][0]}}">
+											<input type="hidden" name="move_where" value='4'>
+											<button type="submit" class="btn btn-default btn-small">Try Again In A Week</button>
+										</form>
+									</li>
+									<li>
+										<form action="{{ url_for('editifa') }}" method="post" style="height: 2px;">
+											<input type="hidden" name="idifa" value="{{query2[i][0]}}">
+											<input type="hidden" name="move_where" value='5'>
+											<button type="submit" class="btn btn-default btn-small">Try Again In A Month</button>
+										</form>
+									</li>
 								</ul>
 							</div>
 						</form>
@@ -123,16 +136,7 @@ dateFormat: "yymmdd"
 							<div class="btn-group btn-group-mini" role="group" aria-label="buttons">
 							<input type="hidden" name="idifa" value="{{query3[i][0]}}">
 							<input type="hidden" name="move_where" value=2>
-							<button type="submit" name="move_where" value="2" class="btn btn-primary btn-mini">Del</button>
-								<button type="button" class="btn btn-primary btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-								<span class="caret"></span>
-								<span class="sr-only"></span>
-								</button>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="#">Tomorrow</a></li>
-									<li><a href="#">Next Week</a></li>
-									<li><a href="#">Next Month</a></li>
-								</ul>
+							<button type="submit" name="move_where" value="2" class="btn btn-primary btn-mini">Undo</button>
 							</div>
 						</form>
 						

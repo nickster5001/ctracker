@@ -17,7 +17,7 @@ class AddClient(Form):
 	phone = StringField('phone')
 
 class AddIfa(Form):
-	duedate = DateField('duedate',validators=[DataRequired('Due Date Required')])
+	duedate = StringField('duedate',validators=[DataRequired('Due Date Required')])
 	description = StringField('description',validators=[DataRequired('Description Required')])
 
 
