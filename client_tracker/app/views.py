@@ -8,7 +8,13 @@ from .forms import AddIfa
 from .models import clients, ifa, deleted_ifa
 from .secrets import *
 from flask.ext.login import login_user, logout_user, current_user, login_required
+from flask.ext.login import LoginManager
  
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+login_manager.login_view = 'login'
+
 import MySQLdb
 db = MySQLdb.connect(host="localhost", user=USER, passwd=PASSWORD, db="nickdb1")
 cursor = db.cursor()
@@ -247,9 +253,10 @@ def login():
 		if request.form['username'] != 'admin' or request.form['password'] != 'admin':
 			error = 'Invalid Credentials. Please try again.'
 		else:
+			admin ="admin"
+			login_user(admin)
 			return redirect(url_for('index'))
 	return render_template('login.html', error=error)
-
 
 #def login():
 #    form = LoginForm()
